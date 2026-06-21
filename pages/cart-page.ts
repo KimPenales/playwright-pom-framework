@@ -1,7 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './base-page';
 export class CartPage extends BasePage {
-    readonly page: Page;
     //Product locators
     readonly backpackProduct: Locator;
     readonly bikeLightProduct: Locator;
@@ -15,6 +14,7 @@ export class CartPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
+        this.page = page;
         this.backpackProduct =
             page.getByRole('link', {
                 name: 'Sauce Labs Backpack'

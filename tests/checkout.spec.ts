@@ -39,25 +39,25 @@ test.describe('Checkout Features', () => {
         //Validate checkout complete header
         await checkoutPage.validateCheckoutCompleteHeader();
     });
-   for (const data of invalidCheckoutData) {
-    test(data.testName, async ({ inventoryPage, cartPage, checkoutPage }) => {
-        await goToCheckoutInformationPage(
-            inventoryPage,
-            cartPage,
-            checkoutPage
-        );
+    for (const data of invalidCheckoutData) {
+        test(data.testName, async ({ inventoryPage, cartPage, checkoutPage }) => {
+            await goToCheckoutInformationPage(
+                inventoryPage,
+                cartPage,
+                checkoutPage
+            );
 
-        await checkoutPage.fillCustomerInfo(
-            data.firstName,
-            data.lastName,
-            data.zipCode
-        );
+            await checkoutPage.fillCustomerInfo(
+                data.firstName,
+                data.lastName,
+                data.zipCode
+            );
 
-        await checkoutPage.continueCheckout();
+            await checkoutPage.continueCheckout();
 
-        await checkoutPage.validateErrorMessage(
-            data.errorMessage
-        );
-    });
-}
+            await checkoutPage.validateErrorMessage(
+                data.errorMessage
+            );
+        });
+    }
 });

@@ -1,17 +1,14 @@
 import { Page, Locator, expect } from '@playwright/test';
-
-export class LoginPage {
-
-    readonly page: Page;
+import { BasePage } from './base-page';
+export class LoginPage extends BasePage {
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;
     readonly loginButton: Locator;
     readonly errorMessage: Locator;
 
     constructor(page: Page) {
-
+        super(page);
         this.page = page;
-
         this.usernameInput = 
             page.locator('#user-name');
         this.passwordInput = 
@@ -25,18 +22,12 @@ export class LoginPage {
     async gotoLoginPage() {
         await this.page.goto('https://www.saucedemo.com/');
     }
-
     async login(username: string, password: string) {
-
         await this.usernameInput.fill(username);
-
         await this.passwordInput.fill(password);
-
         await this.loginButton.click();
     }
-
-    async validateErrorMessage(message: string) {
-        
+    async validateErrorMessage(message: string) {   
         await expect(this.errorMessage)
             .toContainText(message);
     }

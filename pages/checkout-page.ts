@@ -1,7 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './base-page';
 export class CheckoutPage extends BasePage {
-    readonly page: Page;
     //Checkout locators
     readonly firstNameInput: Locator;
     readonly lastNameInput: Locator;
@@ -17,6 +16,7 @@ export class CheckoutPage extends BasePage {
 
     constructor(page: Page) {
         super(page);
+        this.page = page;
         this.firstNameInput =
             page.getByPlaceholder('First Name');
         this.lastNameInput =
@@ -30,7 +30,7 @@ export class CheckoutPage extends BasePage {
         this.paymentInformation =
             page.getByText('Payment Information');
         this.successMessage =
-            page.getByRole('heading', {name: 'Thank you for your order!' });
+            page.getByRole('heading', { name: 'Thank you for your order!' });
         this.checkoutHeader =
             page.getByText('Checkout: Complete!');
         this.errorMessage = 
