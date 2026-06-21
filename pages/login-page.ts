@@ -1,5 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
 import { BasePage } from './base-page';
+import { env } from '../config/env';
 export class LoginPage extends BasePage {
     readonly usernameInput: Locator;
     readonly passwordInput: Locator;
@@ -20,7 +21,9 @@ export class LoginPage extends BasePage {
     }
 
     async gotoLoginPage() {
-        await this.page.goto('https://www.saucedemo.com/');
+        await this.page.goto(
+            env.baseUrl
+        );
     }
     async login(username: string, password: string) {
         await this.usernameInput.fill(username);
