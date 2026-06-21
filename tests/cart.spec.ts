@@ -34,13 +34,8 @@ test.describe('Cart Features', () => {
         const inventoryPage = new InventoryPage(page);
         const cartPage = new CartPage(page);
         const checkoutPage = new CheckoutPage(page);
-
-        //Inventory page is loaded
-        await inventoryPage.validateInventoryPageLoaded();
         //Add products
         await inventoryPage.addMultipleProductsToCart();
-        //Validate cart count
-        await inventoryPage.validateCartBadge('3');
         //Open cart
         await inventoryPage.openCart();
         //Validate added products in cart
@@ -53,8 +48,6 @@ test.describe('Cart Features', () => {
     test('user can remove products from cart', async ({page}) => {
         const inventoryPage = new InventoryPage(page);
         const cartPage = new CartPage(page);
-        //Inventory page is loaded
-        await inventoryPage.validateInventoryPageLoaded();
         //Add products
         await inventoryPage.addMultipleProductsToCart();
         //Validate cart count

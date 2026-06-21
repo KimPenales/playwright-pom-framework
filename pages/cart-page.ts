@@ -57,4 +57,8 @@ export class CartPage {
         await this.removeBikeLightButton.click();
         await this.removeBoltShirtButton.click();
     }
+    async validateCartPageLoaded() {
+        await expect(this.page)
+            .toHaveURL(/cart/);
+    }
 }

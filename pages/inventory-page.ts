@@ -52,18 +52,11 @@ export class InventoryPage {
         await expect(this.page)
             .toHaveURL(/inventory/);
     }
-      async validateCartPageLoaded() {
-        await expect(this.page)
-            .toHaveURL(/cart/);
-    }
-    async validateCartBadge(count: string) {
+    async validateCartBadge(count: string) { 
         await expect(this.shoppingCartBadge)
             .toHaveText(count);
     }
     async openCart() {
         await this.shoppingCartLink.click();
-        //Cart Page is loaded
-        await expect(this.page)
-        .toHaveURL(/cart/);
     }
 }

@@ -14,6 +14,7 @@ export class CheckoutPage {
     readonly paymentInformation: Locator;
     readonly successMessage: Locator;
     readonly checkoutHeader: Locator;
+    readonly errorMessage: Locator;
 
     constructor(page: Page) {
 
@@ -34,6 +35,8 @@ export class CheckoutPage {
             page.getByRole('heading', {name: 'Thank you for your order!' });
         this.checkoutHeader =
             page.getByText('Checkout: Complete!');
+        this.errorMessage = 
+            page.locator('[data-test="error"]');
     }
     
     async validateCheckoutInformationPageLoaded() {
@@ -70,5 +73,9 @@ export class CheckoutPage {
     async validateCheckoutCompleteHeader() {
         await expect(this.checkoutHeader)
             .toBeVisible();
+    }
+    async validateErrorMessage(message: string) {
+        await expect(this.errorMessage)
+            .toContainText(message);
     }
 }
