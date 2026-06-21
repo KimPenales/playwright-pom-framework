@@ -1,40 +1,22 @@
-import { test } from '@playwright/test';
+import { test } from '../fixtures/base-fixture';
 import { users } from '../test-data/user-data';
-import { LoginPage } from '../pages/login-page';
-import { InventoryPage } from '../pages/inventory-page';
-import { CartPage } from '../pages/cart-page';
-import { CheckoutPage } from '../pages/checkout-page';
+import { goToCheckoutInformationPage } from '../utils/checkout-helper';
 
 test.describe('Checkout Features', () => {
-    test.beforeEach(async ({ page }) => {
-        const loginPage = new LoginPage(page);   
+    test.beforeEach(async ({ loginPage }) => {
         await loginPage.gotoLoginPage();
+
         await loginPage.login(
             users.standardUser.username,
             users.standardUser.password
         );
-    }); 
-    test('user can complete checkout flow', async ({ page }) => {
-        const inventoryPage = new InventoryPage(page);
-        const cartPage = new CartPage(page);
-        const checkoutPage = new CheckoutPage(page);
-
-        //Inventory page is loaded
-        await inventoryPage.validateInventoryPageLoaded();
-        //Add products
-        await inventoryPage.addMultipleProductsToCart();
-        //Validate cart count
-        await inventoryPage.validateCartBadge('3');
-        //Open cart
-        await inventoryPage.openCart();
-        //Cart page is loaded
-        await cartPage.validateCartPageLoaded();
-        //Validate added products
-        await cartPage.validateProductsInCart();
-        //Proceed to checkout
-        await cartPage.proceedToCheckout();
-        //Validate checkout page is loaded
-        await checkoutPage.validateCheckoutInformationPageLoaded();
+    });
+    test('user can complete checkout flow', async ({ inventoryPage, cartPage, checkoutPage }) => {
+        await goToCheckoutInformationPage(
+            inventoryPage,
+            cartPage,
+            checkoutPage
+        );
         //Fill customer info
         await checkoutPage.fillCustomerInfo(
             'Kim',
@@ -56,26 +38,12 @@ test.describe('Checkout Features', () => {
         //Validate checkout complete header
         await checkoutPage.validateCheckoutCompleteHeader();
     });
-    test('user cannot checkout without first name', async ({ page }) => {
-        const inventoryPage = new InventoryPage(page);
-        const cartPage = new CartPage(page);
-        const checkoutPage = new CheckoutPage(page);
-        //Inventory page is loaded
-        await inventoryPage.validateInventoryPageLoaded();
-        //Add products
-        await inventoryPage.addMultipleProductsToCart();
-        //Validate cart count
-        await inventoryPage.validateCartBadge('3');
-        //Open cart
-        await inventoryPage.openCart();
-        //Cart page is loaded
-        await cartPage.validateCartPageLoaded();
-        //Validate added products
-        await cartPage.validateProductsInCart();
-        //Proceed to checkout
-        await cartPage.proceedToCheckout();
-        //Validate checkout page is loaded
-        await checkoutPage.validateCheckoutInformationPageLoaded();
+    test('user cannot checkout without first name', async ({ inventoryPage, cartPage, checkoutPage }) => {
+        await goToCheckoutInformationPage(
+            inventoryPage,
+            cartPage,
+            checkoutPage
+        );
         //Fill customer info
         await checkoutPage.fillCustomerInfo(
             '',
@@ -87,26 +55,12 @@ test.describe('Checkout Features', () => {
         //Validate Error Message
         await checkoutPage.validateErrorMessage('First Name is required');
     });
-    test('user cannot checkout without last name', async ({ page }) => {
-        const inventoryPage = new InventoryPage(page);
-        const cartPage = new CartPage(page);
-        const checkoutPage = new CheckoutPage(page);
-        //Inventory page is loaded
-        await inventoryPage.validateInventoryPageLoaded();
-        //Add products
-        await inventoryPage.addMultipleProductsToCart();
-        //Validate cart count
-        await inventoryPage.validateCartBadge('3');
-        //Open cart
-        await inventoryPage.openCart();
-        //Cart page is loaded
-        await cartPage.validateCartPageLoaded();
-        //Validate added products
-        await cartPage.validateProductsInCart();
-        //Proceed to checkout
-        await cartPage.proceedToCheckout();
-        //Validate checkout page is loaded
-        await checkoutPage.validateCheckoutInformationPageLoaded();
+    test('user cannot checkout without last name', async ({ inventoryPage, cartPage, checkoutPage }) => {
+        await goToCheckoutInformationPage(
+            inventoryPage,
+            cartPage,
+            checkoutPage
+        );
         //Fill customer info
         await checkoutPage.fillCustomerInfo(
             'Kim',
@@ -118,26 +72,12 @@ test.describe('Checkout Features', () => {
         //Validate Error Message
         await checkoutPage.validateErrorMessage('Last Name is required');
     });
-    test('user cannot checkout without zip code', async ({ page }) => {
-        const inventoryPage = new InventoryPage(page);
-        const cartPage = new CartPage(page);
-        const checkoutPage = new CheckoutPage(page);
-        //Inventory page is loaded
-        await inventoryPage.validateInventoryPageLoaded();
-        //Add products
-        await inventoryPage.addMultipleProductsToCart();
-        //Validate cart count
-        await inventoryPage.validateCartBadge('3');
-        //Open cart
-        await inventoryPage.openCart();
-        //Cart page is loaded
-        await cartPage.validateCartPageLoaded();
-        //Validate added products
-        await cartPage.validateProductsInCart();
-        //Proceed to checkout
-        await cartPage.proceedToCheckout();
-        //Validate checkout page is loaded
-        await checkoutPage.validateCheckoutInformationPageLoaded();
+    test('user cannot checkout without zip code', async ({ inventoryPage, cartPage, checkoutPage }) => {
+        await goToCheckoutInformationPage(
+            inventoryPage,
+            cartPage,
+            checkoutPage
+        );
         //Fill customer info
         await checkoutPage.fillCustomerInfo(
             'Kim',

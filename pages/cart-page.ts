@@ -61,4 +61,9 @@ export class CartPage {
         await expect(this.page)
             .toHaveURL(/cart/);
     }
+    async validateProductsRemovedFromCart() {
+        await expect(this.backpackProduct).not.toBeVisible();
+        await expect(this.bikeLightProduct).not.toBeVisible();
+        await expect(this.boltShirtProduct).not.toBeVisible();
+    }
 }
