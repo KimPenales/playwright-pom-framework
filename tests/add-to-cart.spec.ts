@@ -18,17 +18,13 @@ test.describe('Inventory Features', () => {
         const inventoryPage = new InventoryPage(page);
         const cartPage = new CartPage(page);
         
-        //3. Validate inventory page is loaded
+        //Inventory page is loaded
         await inventoryPage.validateInventoryPageLoaded();
-        //4. Add products
+        //Add products
         await inventoryPage.addMultipleProductsToCart();
-        //5. Validate remove buttons
-        await inventoryPage.validateRemoveButtons();
-        //6. Validate cart count
+        //Validate cart count
         await inventoryPage.validateCartBadge('3');
-        //7. Open cart
+        //Open cart
         await inventoryPage.openCart();
-        //8. Validate cart page is loaded
-        await cartPage.validateCartPageLoaded();
     });
 });

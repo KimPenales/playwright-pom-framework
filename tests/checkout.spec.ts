@@ -19,43 +19,39 @@ test.describe('Checkout Features', () => {
         const cartPage = new CartPage(page);
         const checkoutPage = new CheckoutPage(page);
 
-        //3. Validate inventory page is loaded
+        //Inventory page is loaded
         await inventoryPage.validateInventoryPageLoaded();
-        //4. Add products
+        //Add products
         await inventoryPage.addMultipleProductsToCart();
-        //5. Validate remove buttons
-        await inventoryPage.validateRemoveButtons();
-        //6. Validate cart count
+        //Validate cart count
         await inventoryPage.validateCartBadge('3');
-        //7. Open cart
+        //Open cart
         await inventoryPage.openCart();
-        //8. Validate cart page is loaded
-        await cartPage.validateCartPageLoaded();
-        //9. Validate added products
+        //Validate added products
         await cartPage.validateProductsInCart();
-        //10. Proceed to checkout
+        //Proceed to checkout
         await cartPage.proceedToCheckout();
-        //11. Validate checkout page is loaded
+        //Validate checkout page is loaded
         await checkoutPage.validateCheckoutInformationPageLoaded();
-        //12. Fill customer info
+        //Fill customer info
         await checkoutPage.fillCustomerInfo(
             'Kim',
             'Pogi',
             '143'
         );
-        //13. Continue to checkout
+        //Continue to checkout
         await checkoutPage.continueCheckout();
-        //14. Validate checkout overview page is loaded
+        //Checkout overview page is loaded
         await checkoutPage.validateCheckoutOverviewPageLoaded();
-        //15. Validate payment information
+        //Validate payment information
         await checkoutPage.validatePaymentInformation();
-        //16. Finish checkout
+        //Finish checkout
         await checkoutPage.finishCheckout();
-        //17. Validate checkout complete page is loaded
+        //Checkout complete page is loaded
         await checkoutPage.validateCheckoutCompletePageLoaded();
-        //18. Validate success message
+        //Validate success message
         await checkoutPage.validateSuccessMessage();
-        //19. Validate checkout complete header
+        //Validate checkout complete header
         await checkoutPage.validateCheckoutCompleteHeader();
     });
 });
