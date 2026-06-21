@@ -1,7 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
-
-export class CheckoutPage {
-
+import { BasePage } from './base-page';
+export class CheckoutPage extends BasePage {
     readonly page: Page;
     //Checkout locators
     readonly firstNameInput: Locator;
@@ -17,8 +16,7 @@ export class CheckoutPage {
     readonly errorMessage: Locator;
 
     constructor(page: Page) {
-
-        this.page = page;
+        super(page);
         this.firstNameInput =
             page.getByPlaceholder('First Name');
         this.lastNameInput =
@@ -40,16 +38,19 @@ export class CheckoutPage {
     }
     
     async validateCheckoutInformationPageLoaded() {
-        await expect(this.page)
-            .toHaveURL(/checkout-step-one/);
+        await this.validateUrl(
+            /checkout-step-one/
+        );
     }
     async validateCheckoutOverviewPageLoaded() {
-        await expect(this.page)
-            .toHaveURL(/checkout-step-two/);
+        await this.validateUrl(
+            /checkout-step-two/
+        );
     }
     async validateCheckoutCompletePageLoaded() {
-        await expect(this.page)
-            .toHaveURL(/checkout-complete/)
+        await this.validateUrl(
+            /checkout-complete/
+        );
     }
     async fillCustomerInfo(firstName: string, lastName: string, zipCode: string) {
         await this.firstNameInput.fill(firstName);

@@ -1,6 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
-export class CartPage {
-
+import { BasePage } from './base-page';
+export class CartPage extends BasePage {
     readonly page: Page;
     //Product locators
     readonly backpackProduct: Locator;
@@ -14,8 +14,7 @@ export class CartPage {
     readonly checkoutButton: Locator;
 
     constructor(page: Page) {
-
-        this.page = page;
+        super(page);
         this.backpackProduct =
             page.getByRole('link', {
                 name: 'Sauce Labs Backpack'
@@ -58,8 +57,9 @@ export class CartPage {
         await this.removeBoltShirtButton.click();
     }
     async validateCartPageLoaded() {
-        await expect(this.page)
-            .toHaveURL(/cart/);
+        await this.validateUrl(
+            /cart/
+        );
     }
     async validateProductsRemovedFromCart() {
         await expect(this.backpackProduct).not.toBeVisible();

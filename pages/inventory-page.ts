@@ -1,8 +1,6 @@
 import { Page, Locator, expect } from '@playwright/test';
-
-export class InventoryPage {
-
-    readonly page: Page;
+import { BasePage } from './base-page';
+export class InventoryPage extends BasePage {
     //Product locators
     readonly backpackAddToCartButton: Locator;
     readonly bikeLightAddToCartButton: Locator;
@@ -16,8 +14,7 @@ export class InventoryPage {
     readonly shoppingCartLink: Locator;
 
     constructor(page: Page) {
-
-        this.page = page;
+        super(page);
         this.backpackAddToCartButton = 
             page.locator('#add-to-cart-sauce-labs-backpack');
         this.bikeLightAddToCartButton = 
@@ -49,8 +46,9 @@ export class InventoryPage {
             .toHaveText('Remove');    
     }
     async validateInventoryPageLoaded() {
-        await expect(this.page)
-            .toHaveURL(/inventory/);
+        await this.validateUrl(
+            /inventory/
+        );
     }
     async validateCartBadge(count: string) { 
         await expect(this.shoppingCartBadge)
